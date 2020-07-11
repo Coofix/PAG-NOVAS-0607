@@ -1,18 +1,7 @@
 <?php
 
-include("php/conexao.php");
-session_start();
-    if(!$_SESSION['usuarioEmail']){
-	    header('Location: pagin-login.php');
-	    exit();
-}else{
-
-
-    $sql_code = "SELECT * FROM PACIENTE";
-    $sql_query = $mysqli->query($sql_code) or die($mysqli->error);
-    $linha = $sql_query->fetch_assoc();
-
-}
+	
+    include("php/conexao.php");
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +78,7 @@ session_start();
                     <li><a href="dadosdiarios.html"><i class="fa fa-user"></i> Dados Diários </a></li>
                     <li><a href="page-calendar.html"><i class="fa fa-calendar"></i> Historico paciente </a></li>
                     <li><a href="gerenciamento.html"><i class="fa fa-server"></i> Gerenciamento </a></li>
-                    <li><a href="sair10.php"><i class="fa fa-sign-in"></i> Sair </a></li>
+                    <li><a href="page-login.html"><i class="fa fa-sign-in"></i> Sair </a></li>
                 </ul>
             </div>
             <!--nano content-->
@@ -117,21 +106,18 @@ session_start();
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form id="example-form" action="#">
+                        <form id="example-form" method="POST" action="processa.php">
                             <div>
                                 <h3>Paciente</h3>
                                 <section>
-                                    <label for="userName">*Seleicione o paciente que você quer adicionar informações na ficha diaria do pacinete</label>
+                                    <label for="userName">*Selecione o paciente que você quer adicionar informações na ficha diaria do pacinete</label>
 
-                                    <select name="id_paciente" required class="form-control m-bv required">
+                                    <select name="id_paciente" class="form-control m-bv" required >
                                             <option><font style="vertical-align: inherit;"></font></option>
-                                            <?php
-
-                                                 do{
-                                                 ?>
-
-                                                <option value="<?php echo $linha['id_paciente']?>" name="id_paciente"><?php echo $linha['nome_paciente']; ?></option>        
-                                            <?php } while($linha = $sql_query->fetch_assoc());?>
+                                            <option value="171" > <font  style="vertical-align: inherit;">Paciente 1</font></option>
+                                            <option value="148" ><font  style="vertical-align: inherit;">Paciente 2</font></option>
+                                            <option><font style="vertical-align: inherit;">Paciente 3</font></option>
+                                            <option><font style="vertical-align: inherit;">Paciente 4</font></option>
                                         </select>
                                     <p>(*) Obrigatório</p>
                                 </section>
@@ -273,77 +259,17 @@ session_start();
                                 <h3>Alimentação</h3>
                                 <section>
                                     <div class="col-md-12">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Horário</th>
-                                                    <th>Tipo de refeição</th>
-                                                    <th>Tipo de acompanhamento</th>
-                                                    <th>Descrição</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>8:10</td>
-                                                    <td>Café da manhã</td>
-                                                    <td>Bebida</td>
-                                                    <td>Café com leite</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8:10</td>
-                                                    <td>Café da manhã</td>
-                                                    <td>Refeição</td>
-                                                    <td>Ovos mexidos</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8:10</td>
-                                                    <td>Café da manhã</td>
-                                                    <td>Refeição</td>
-                                                    <td>Torradas</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8:35</td>
-                                                    <td>Café da manhã</td>
-                                                    <td>Sobremesa</td>
-                                                    <td>Gelatina</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>10:05</td>
-                                                    <td>Eventual</td>
-                                                    <td>Bebida</td>
-                                                    <td>Água</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>12:33</td>
-                                                    <td>Almoço</td>
-                                                    <td>Bebida</td>
-                                                    <td>Suco de laraja</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>12:33</td>
-                                                    <td>Almoço</td>
-                                                    <td>Refeição</td>
-                                                    <td>Arroz, Feijão, Salada Ceaser, Filé de frango grelhado e legumes </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>13:10</td>
-                                                    <td>Almoço</td>
-                                                    <td>Sobremesa</td>
-                                                    <td>Mamão papaya</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
+                                        
 
                                         <div class="col-md-12 painel2 ">
                                             <h3> Cadastrar Alimentação</h3>
                                             <hr>
                                             <div class="novoReg text-center letrap">
-                                                <form id="frmAdd" action="javascript:add()" method="post">
+                                                <form id="frmAdd" >
 
                                                     <div class="col-md-3" style="margin-top:1%">
                                                         <strong>Tipo de refeição </strong>
-                                                        <select name="account" class="form-control m-bv ">
+                                                        <select name="tipo_ref" class="form-control m-bv ">
                                                                 <option selected="1" disabled><font style="vertical-align: inherit;">Selecione...</font></option>
                                                                 <option><font style="vertical-align: inherit;">Café da manhã</font></option>
                                                                 <option><font style="vertical-align: inherit;">Eventual</font></option>
@@ -354,7 +280,7 @@ session_start();
                                                     </div>
                                                     <div class="col-md-3" style="margin-top:1%">
                                                         <strong>Tipo de acompanhamento </strong>
-                                                        <select name="account" class="form-control m-bv ">
+                                                        <select name="tipo_acom" class="form-control m-bv ">
                                                                 <option selected="1" disabled><font style="vertical-align: inherit;">Selecione...</font></option>
                                                                 <option><font style="vertical-align: inherit;">Bebida</font></option>
                                                                 <option><font style="vertical-align: inherit;">Refeição</font></option>
@@ -363,20 +289,14 @@ session_start();
                                                     </div>
                                                     <div class="col-md-4" style="margin-top:1%">
                                                         <strong>Descrição </strong>
-                                                        <input id="desc" name="desc" type="text" width="100%" value="">
+                                                        <input id="desc" name="descricao" type="text" width="100%" value="">
+													</div>
 
-                                                    </div>
-
-                                                    <div class="col-md-2" style="margin-top:1%">
-                                                        <strong>Adicionar </strong>
-                                                        <br>
-                                                        <button id="BtnsalvaAlteracoes" class="btn btn-sm btn-success tam_input" style="cursor:pointer; width: 100%;" type="submit">
-                                                                <em class="fa fa-plus"></em>
-                                                            </button>
-                                                    </div>
-                                                </form>
+                                               
                                             </div>
+                                                </form>
                                         </div>
+                                    </div>
                                 </section>
 
 
@@ -384,43 +304,39 @@ session_start();
                                 <section>
                                     <div class="col-md-12 letrap">
 
-                                        <div class="col-md-2">
-                                            <strong>Situação</strong>
-                                            <input name="inptA0" id="inpt" class="inpX tam_input" type="text" value="">
-                                        </div>
-
-                                        <div class="col-md-2">
+										<div class="col-md-2">
                                             <strong>Horário </strong>
-                                            <input name="inptB0" id="inpt" class="inp0 tam_input" type="text" value="8:30">
+                                            <input name="hora" id="inpt" class="inp0 tam_input" type="time" >
                                         </div>
+										
 
-                                        <div class="col-md-2">
-                                            <strong>Tipo </strong>
-                                            <input name="inptC0" id="inpt" class="inp0 tam_input" type="text" value="admin">
-                                        </div>
-
-                                        <div class="col-md-2">
+										 <div class="col-md-2">
                                             <strong>Medicação </strong>
-                                            <input name="inptD0" id="inptSenha" class="inp0 tam_input" type="text" value="a">
+                                            <input name="medicacao" id="inptSenha" class="inp0 tam_input" type="text" >
                                         </div>
+										
 
                                         <div class="col-md-2">
-                                            <strong>Dose </strong>
-                                            <input name="inptD0" id="inptSenha" class="inp0 tam_input" type="text" value="a">
+                                            <strong>Dosagem </strong>
+                                            <input name="dosagem" id="inptSenha" class="inp0 tam_input" type="text">
                                         </div>
 
                                         <div class="col-md-2">
                                             <strong>Intervalo </strong>
-                                            <input name="inptD0" id="inptSenha" class="inp0 tam_input" type="text" value="a">
+                                            <input name="intervalo" id="inptSenha" class="inp0 tam_input" type="text" >
                                         </div>
 
                                         <div class="col-md-2">
                                             <strong>Observação </strong>
-                                            <input name="inptD0" id="inptSenha" class="inp0 tam_input" type="text" value="a">
+                                            <input name="observacao" id="inptSenha" class="inp0 tam_input" type="text" >
                                         </div>
+										<input type="submit" value="Atualizar">
                                     </div>
+									
                                 </section>
-                                </div>
+                            </div>
+								
+								
                         </form>
                         </div>
                     </div>
